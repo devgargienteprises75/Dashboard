@@ -16,7 +16,7 @@ const ProductSalesChart = ({ data }) => {
     <div className='bg-white rounded-lg p-6 shadow-sm border border-gray-100'>
       <h2 className='text-lg font-bold text-gray-900 mb-4'>Last Month Overview</h2>
       <div className='flex justify-center'>
-        <ResponsiveContainer width="100%" height={250}>
+        <ResponsiveContainer width="100%" height={300}>
           <PieChart>
             <Pie
               data={chartData}
@@ -32,7 +32,7 @@ const ProductSalesChart = ({ data }) => {
               ))}
             </Pie>
             <Tooltip />
-            <Legend />
+            <Legend align="center" verticalAlign="bottom" wrapperStyle={{ marginTop: 32 }} />
           </PieChart>
         </ResponsiveContainer>
       </div>
@@ -47,7 +47,7 @@ const TrafficChart = ({ title = "Pending Tasks", data }) => {
     { name: 'Handover to Purchase', value: data[0]?.pending.handover_to_purchase || 0 },
     { name: 'MR Creation', value: data[0]?.pending.mr_creation || 0 },
     { name: 'Handover to Accounts', value: data[0]?.pending.handover_to_accounts || 0 },
-    { name: 'Voucher Creation', value: data[0]?.pending.voucher_created}
+    { name: 'Voucher Creation', value: data[0]?.pending.voucher_created || 0 }
   ] : []
 
   const COLORS = ['#FF9F43', '#4366FF', '#FF6B9D', '#845ef7']
@@ -56,8 +56,8 @@ const TrafficChart = ({ title = "Pending Tasks", data }) => {
     <div className='bg-white rounded-lg p-6 shadow-sm border border-gray-100'>
       <h2 className='text-lg font-bold text-gray-900 mb-4'>Pending Status</h2>
       <div className='flex justify-center'>
-        <ResponsiveContainer width="100%" height={250}>
-          <PieChart>
+        <ResponsiveContainer width="100%" height={300}>
+          <PieChart className=''>
             <Pie
               data={chartData}
               cx="50%"
@@ -66,14 +66,13 @@ const TrafficChart = ({ title = "Pending Tasks", data }) => {
               outerRadius={100}
               paddingAngle={5}
               dataKey="value"
-              className='mb-6'
             >
               {chartData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>
             <Tooltip />
-            <Legend />
+            <Legend align="center" verticalAlign="bottom" wrapperStyle={{ marginTop: 32 }} />
           </PieChart>
         </ResponsiveContainer>
       </div>

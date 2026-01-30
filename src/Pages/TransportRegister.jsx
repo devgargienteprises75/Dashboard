@@ -8,6 +8,7 @@ import RevenueChart from '../Components/DailyPerformanceChart';
 import DailyPerformanceChart from '../Components/DailyPerformanceChart';
 import PendingTasks from '../Components/PendingTasks';
 import { ProductSalesChart, TrafficChart } from '../Components/PieCharts';
+import Modal from '../Components/Modal';
 
 const TransportRegister = () => {
 
