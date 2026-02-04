@@ -1,21 +1,21 @@
 import React, { useContext } from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
-import { TransportRegData } from '../Context/TransportReg';
+import { TransportRegData } from '../../Context/APIData';
 
-const DailyPerformanceChart = ({ data = [], className }) => {
+const DailyPerformanceChart = ({ transportRegData = [], className }) => {
 
-    const { timePeriod } = useContext(TransportRegData)
-    
+  const { timePeriod } = useContext(TransportRegData)
+
   // Convert your data to chart format
-const chartData = data && data.length > 0 ?
-  Object.entries(data).flatMap(([key, value]) => {
-    return Object.entries(value)
-    .filter(([fieldName]) => !['mr_status_done','pending', 'pending_details', 'last_updated'].includes(fieldName))
-    .map((item) => ({
-      name: item[0].charAt(0).toUpperCase() + item[0].split('_').join(" ").slice(1, 17) + (item[0].length > 17 ? '...' : ''),
-      "Value": item[1]?.[timePeriod]
-    }))
-  }) : []
+  const chartData = transportRegData && transportRegData.length > 0 ?
+    Object.entries(transportRegData).flatMap(([key, value]) => {
+      return Object.entries(value)
+        .filter(([fieldName]) => !['mr_status_done', 'pending', 'pending_details', 'last_updated'].includes(fieldName))
+        .map((item) => ({
+          name: item[0].charAt(0).toUpperCase() + item[0].split('_').join(" ").slice(1, 17) + (item[0].length > 17 ? '...' : ''),
+          "Value": item[1]?.[timePeriod]
+        }))
+    }) : []
 
   return (
     <div className={`bg-white rounded-lg p-6 ${className} shadow-sm border border-gray-100`}>
@@ -23,7 +23,7 @@ const chartData = data && data.length > 0 ?
       <ResponsiveContainer width="100%" height={280}>
         <BarChart data={chartData}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-          <XAxis dataKey="name" fontSize={16}/>
+          <XAxis dataKey="name" fontSize={16} />
           <YAxis />
           <Tooltip />
           <Legend />

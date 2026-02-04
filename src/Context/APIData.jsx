@@ -5,7 +5,8 @@ export const TransportRegData = createContext()
 
 const TransportReg = ({ children }) => {
 
-    const [ data, setData ] = useState(null)
+    const [ transportRegData, setTransportRegData ] = useState(null)
+    const [ cerData, setCerData ] = useState(null)
     const [ loading, setLoading ] = useState(null)
     const [ error, setError ] = useState(null)
     const [timePeriod, setTimePeriod] = useState('today')
@@ -13,18 +14,21 @@ const TransportReg = ({ children }) => {
     useEffect(() => {
          const fetchData = async () => {
             try {
-                const { data } = await axios.get("http://localhost:5678/webhook/get-sheet-data")
-                setData(data)
+                const response = await Promise.all([
+                    axios.get("http://localhost:5678/webhook/get-sheet-data"),
+                    axios.get("http://localhost:5678/webhook/get-sheet-data-cer")
+                ])
+                console.log(response[1].data);
+                setTransportRegData(response[0].data)
+                setCerData(response[1].data)
             } catch (err) {
                 setError(err.message)
             }
         }
-
         fetchData()
     }, [])
-
   return (
-    <TransportRegData.Provider value={{ data, loading, error, timePeriod, setTimePeriod }}>
+    <TransportRegData.Provider value={{ transportRegData, cerData, loading, error, timePeriod, setTimePeriod }}>
         {children}
     </TransportRegData.Provider>
   )
