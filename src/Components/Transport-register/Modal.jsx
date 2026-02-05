@@ -30,33 +30,83 @@ const Modal = ({ transportRegData, taskId, isOpen = false, onClose = () => {} })
     const currentTask = allPendingItems.find(task => task.id === taskId)
     
   return (
-    <div className='fixed inset-0 z-50 flex items-center justify-center'>
-      <div className='absolute inset-0 bg-black/40' onClick={onClose} />
+    <div className='fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm'>
+      <div className='absolute inset-0 bg-black/50' onClick={onClose} />
 
       <div 
-        className="relative h-auto bg-gray-50 flex flex-col gap-3 w-full max-w-2xl transform shadow-2xl p-6 rounded-lg"
+        className="relative h-auto bg-gradient-to-br from-white to-gray-50 flex flex-col gap-4 w-full max-w-2xl transform shadow-2xl p-8 rounded-2xl border border-gray-200"
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className='absolute right-4 top-4 cursor-pointer text-gray-600 hover:text-gray-800'
+          className='absolute right-4 top-4 cursor-pointer text-gray-400 hover:text-gray-700 transition-colors p-2 hover:bg-gray-100 rounded-lg'
           onClick={onClose}
           aria-label='Close'
         >
-          <X />
+          <X size={24} />
         </button>
 
         {!currentTask ? (
-          <div>
-            <h3 className='text-lg font-semibold'>No task selected</h3>
+          <div className='text-center py-8'>
+            <h3 className='text-lg font-semibold text-gray-600'>No task selected</h3>
           </div>
         ) : (
           <div>
-            <h1 className='text-center text-xl font-bold mb-4'>{currentTask.category}</h1>
-            <h2 className='text-lg'><b>Party Name - </b>{currentTask.description?.party_name ?? '-'}</h2>
-            <h2 className='text-lg'><b>Amount - </b>{currentTask.description?.amount ?? '-'}</h2>
-            <h2 className='text-lg'><b>Bill Date - </b>{currentTask.description?.bill_date ?? '-'}</h2>
-            <h2 className='text-lg'><b>Reason - </b>{currentTask.description?.reason ?? '-'}</h2>
-            <h2 className='text-lg'><b>Pending from - </b>{currentTask.description?.hours_pending ? Math.floor(currentTask.description.hours_pending / 24) + ' days' : '-'}</h2>
+            <div className='flex items-center gap-3 mb-6 pb-4 border-b-2 border-gray-200'>
+              <div className='p-3 bg-yellow-100 rounded-xl'>
+                <svg className='w-6 h-6 text-yellow-600' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' />
+                </svg>
+              </div>
+              <h1 className='text-2xl font-extrabold text-gray-900 tracking-tight'>{currentTask.category}</h1>
+            </div>
+            <div className='space-y-4 bg-white p-6 rounded-xl shadow-sm border border-gray-100'>
+              <div className='flex items-start gap-4 pb-3 border-b border-gray-100'>
+                <span className='text-sm font-bold text-gray-500 w-32'>Party Name</span>
+                <span className='text-base font-semibold text-gray-900 flex-1'>{currentTask.description?.party_name ?? '-'}</span>
+              </div>
+              <div className='flex items-start gap-4 pb-3 border-b border-gray-100'>
+                <span className='text-sm font-bold text-gray-500 w-32'>Amount</span>
+                <span className='text-base font-semibold text-green-600 flex-1'>{currentTask.description?.amount ? `₹${currentTask.description.amount}` : '-'}</span>
+              </div>
+              <div className='flex items-start gap-4 pb-3 border-b border-gray-100'>
+                <span className='text-sm font-bold text-gray-500 w-32'>Bill Date</span>
+                <span className='text-base font-semibold text-gray-900 flex-1'>{currentTask.description?.bill_date ?? '-'}</span>
+              </div>
+              <div className='flex items-start gap-4 pb-3 border-b border-gray-100'>
+                <span className='text-sm font-bold text-gray-500 w-32'>Reason</span>
+                <span className='text-base font-semibold text-gray-900 flex-1'>{currentTask.description?.reason ?? '-'}</span>
+              </div>
+              <div className='flex items-start gap-4'>
+                <span className='text-sm font-bold text-gray-500 w-32'>Pending from</span>
+                <span className='text-base font-semibold text-red-600 flex-1'>
+                  {(() => {
+                    // Calculate from bill_date if available
+                    if (currentTask.description?.bill_date) {
+                      try {
+                        const billDate = new Date(currentTask.description.bill_date);
+                        const today = new Date();
+                        const diffTime = Math.abs(today - billDate);
+                        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                        return `${diffDays} days`;
+                      } catch (e) {
+                        console.error('Error parsing date:', e);
+                      }
+                    }
+                    // Fallback to hours_pending with smart detection
+                    if (currentTask.description?.hours_pending) {
+                      const value = currentTask.description.hours_pending;
+                      // If value is less than 720 hours (30 days), assume it's already in days
+                      if (value < 720) {
+                        return `${Math.floor(value)} days`;
+                      }
+                      // Otherwise, assume it's in hours
+                      return `${Math.floor(value / 24)} days`;
+                    }
+                    return '-';
+                  })()}
+                </span>
+              </div>
+            </div>
           </div>
         )}
       </div>

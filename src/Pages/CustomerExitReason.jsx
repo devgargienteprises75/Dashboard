@@ -4,13 +4,11 @@ import Error from '../Components/Error'
 import Loading from '../Components/Loading'
 import Card from '../Components/Cer/Card'
 import DailyPerformanceChart from '../Components/Cer/DailyPerformanceChart'
-import { OverviewChart } from '../Components/Cer/PieCharts'
 import TopCards from '../Components/Cer/TopCards'
 import SalesmanChart from '../Components/Cer/SalesmanChart'
 import FloorChart from '../Components/Cer/FloorChart'
 import ReasonChart from '../Components/Cer/ReasonChart'
 import TopBar from '../Components/TopBar'
-
 const CustomerExitReason = () => {
 
   const { cerData, loading, error, timePeriod } = useContext(TransportRegData)
@@ -53,7 +51,7 @@ const CustomerExitReason = () => {
   }
 
   return (
-    <div className='w-[85%] bg-[#f1f1f1] absolute right-0 p-6'>
+    <div className='w-[85%] bg-[#fff] absolute right-0 p-6'>
       {error && <Error error={error}/>}
       <TopBar />
       {cerData ? (
@@ -65,10 +63,9 @@ const CustomerExitReason = () => {
 
           <div className="charts grid grid-cols-3 h-[80vh] grid-rows-2 gap-4">
             <DailyPerformanceChart cerData={cerData} className="col-span-2" />
-            <SalesmanChart cerData={cerData} />
+            <SalesmanChart cerData={cerData} className="col-span-2" />
             <FloorChart cerData={cerData} />
             <ReasonChart cerData={cerData} />
-            <OverviewChart cerData={cerData} />
           </div>
         </>
       ) : <Loading />}

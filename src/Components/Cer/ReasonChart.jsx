@@ -28,24 +28,67 @@ const ReasonChart = ({ cerData = [] }) => {
   const [selected, setSelected] = useState(null)
   const getFirstData = (arr) => { if (!arr) return null; if (!Array.isArray(arr)) return arr; for (const item of arr) if (item && typeof item === 'object' && Object.keys(item).length > 0) return item; return null }
   const dataObj = getFirstData(cerData)
-  const key = findCandidateKey(dataObj, ['reason', 'reasons', 'exit_reason'])
+  const key = findCandidateKey(dataObj, ['reason', 'reasons', 'exit_reason', 'exit_reasons'])
+  const selectedSource = key ? dataObj[key] : null
 
-  const reasonArray = key ? tryGetReasonArray(dataObj[key], timePeriod) : []
+  const reasonArray = key ? tryGetReasonArray(selectedSource, timePeriod) : []
 
-  const data = reasonArray.map(item => ({ name: item.name, value: item.count ?? item.count ?? 0, raw: item }))
+  const getValue = (item) => {
+    if (!item || typeof item !== 'object') return 0
+    const raw = item.count ?? item.value ?? item.total ?? item.qty ?? item.number
+    return typeof raw === 'number' ? raw : Number(raw) || 0
+  }
+
+  const data = reasonArray.map(item => ({ name: item.name ?? item.reason ?? item.exit_reason ?? item.type ?? 'Unknown', value: getValue(item), raw: item }))
   const sorted = data.sort((a, b) => b.value - a.value).slice(0, 6)
+  const periodLabel = timePeriod ? timePeriod.replace(/_/g, ' ') : 'selected period'
 
   const getDetailsFor = (reasonName) => {
+    // Helper to check if a detail item belongs to the current time period
+    const isInCurrentPeriod = (detail) => {
+      if (!timePeriod) return true
+      // Check common period field names
+      if (detail.period === timePeriod) return true
+      if (detail.time_period === timePeriod) return true
+
+      // Check if there's a date field and match it to period
+      if (detail.date || detail.timestamp || detail.created_at) {
+        const detailDate = new Date(detail.date || detail.timestamp || detail.created_at)
+        const today = new Date()
+        const yesterday = new Date(today)
+        yesterday.setDate(yesterday.getDate() - 1)
+
+        if (timePeriod === 'today') {
+          return detailDate.toDateString() === today.toDateString()
+        } else if (timePeriod === 'yesterday') {
+          return detailDate.toDateString() === yesterday.toDateString()
+        } else if (timePeriod === 'last_week') {
+          const weekAgo = new Date(today)
+          weekAgo.setDate(weekAgo.getDate() - 7)
+          return detailDate >= weekAgo && detailDate <= today
+        } else if (timePeriod === 'last_month') {
+          const monthAgo = new Date(today)
+          monthAgo.setMonth(monthAgo.getMonth() - 1)
+          return detailDate >= monthAgo && detailDate <= today
+        }
+      }
+
+      // If no period info found, include it (fallback)
+      return true
+    }
+
     // FIXED: First check if there's an exit_details array at the top level
     if (dataObj?.exit_details && Array.isArray(dataObj.exit_details)) {
       const matched = dataObj.exit_details.filter(detail => {
-        // Match by reason, exit_reason, name, or type field
-        return detail.reason === reasonName || 
-               detail.exit_reason === reasonName || 
-               detail.name === reasonName ||
-               detail.type === reasonName
+        // Match by reason AND time period
+        const reasonMatches = detail.reason === reasonName ||
+          detail.exit_reason === reasonName ||
+          detail.name === reasonName ||
+          detail.type === reasonName
+
+        return reasonMatches && isInCurrentPeriod(detail)
       })
-      
+
       if (matched.length) {
         // Extract descriptions from matched details
         return matched.map(m => {
@@ -61,10 +104,10 @@ const ReasonChart = ({ cerData = [] }) => {
     }
 
     // Fallback: Try to find details under possible keys or inline in the raw item
-    const candidateKeys = Object.keys(dataObj || {}).filter(k => 
-      k.toLowerCase().includes('detail') || 
-      k.toLowerCase().includes('description') || 
-      k.toLowerCase().includes('list') || 
+    const candidateKeys = Object.keys(dataObj || {}).filter(k =>
+      k.toLowerCase().includes('detail') ||
+      k.toLowerCase().includes('description') ||
+      k.toLowerCase().includes('list') ||
       k.toLowerCase().includes('items')
     )
 
@@ -113,35 +156,76 @@ const ReasonChart = ({ cerData = [] }) => {
   }
 
   if (!sorted.length) return (
-    <div className='bg-white rounded-lg p-6 shadow-sm border border-gray-100'>
-      <h2 className='text-lg font-bold text-gray-900 mb-4'>Exit Reasons</h2>
-      <div className='text-sm text-gray-500'>No data available</div>
+    <div className='bg-gradient-to-br from-white to-purple-50 rounded-xl p-6 shadow-lg border border-purple-100'>
+      <div className='flex items-center justify-between mb-4'>
+        <h2 className='text-xl font-extrabold text-gray-900 tracking-tight'>Exit Reasons</h2>
+        <span className='px-3 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded-full'>{periodLabel}</span>
+      </div>
+      <div className='flex items-center justify-center h-[200px] text-gray-500 text-sm'>
+        <div className='text-center'>
+          <svg className='w-12 h-12 mx-auto mb-3 text-gray-300' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z' />
+          </svg>
+          <p className='font-medium'>No exits for {periodLabel}</p>
+        </div>
+      </div>
     </div>
   )
 
   return (
-    <div className='bg-white rounded-lg p-6 shadow-sm border border-gray-100'>
-      <h2 className='text-lg font-bold text-gray-900 mb-4'>Exit Reasons</h2>
-      <ResponsiveContainer width="100%" height={220}>
+    <div className='bg-gradient-to-br from-white to-purple-50 rounded-xl p-6 shadow-lg border border-purple-100 hover:shadow-xl transition-shadow duration-300'>
+      <div className='flex items-center justify-between mb-4'>
+        <h2 className='text-xl font-extrabold text-gray-900 tracking-tight'>Exit Reasons</h2>
+        <span className='px-3 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded-full uppercase tracking-wide'>{periodLabel}</span>
+      </div>
+      <ResponsiveContainer width="100%" height={240}>
         <PieChart>
-          <Pie data={sorted} cx="50%" cy="50%" innerRadius={40} outerRadius={80} dataKey="value" paddingAngle={4}>
+          <Pie
+            data={sorted}
+            cx="50%"
+            cy="50%"
+            innerRadius={50}
+            outerRadius={90}
+            dataKey="value"
+            paddingAngle={2}
+            animationDuration={1000}
+          >
             {sorted.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} onClick={() => setSelected(entry.name)} className='cursor-pointer' />
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+                onClick={() => setSelected(entry.name)}
+                className='cursor-pointer hover:opacity-80 transition-opacity duration-200'
+                stroke='#fff'
+                strokeWidth={2}
+              />
             ))}
           </Pie>
-          <Tooltip />
-          <Legend align="center" verticalAlign="bottom" wrapperStyle={{ marginTop: 12 }} />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: '#1F2937',
+              border: 'none',
+              borderRadius: '8px',
+              boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+              color: '#fff',
+              fontSize: '14px',
+              fontWeight: 600,
+              padding: '12px'
+            }}
+            itemStyle={{ color: '#fff' }}
+          />
+          <Legend
+            align="center"
+            verticalAlign="bottom"
+            wrapperStyle={{
+              marginTop: 20,
+              fontSize: '13px',
+              fontWeight: 500
+            }}
+            iconType='circle'
+          />
         </PieChart>
       </ResponsiveContainer>
-
-      <div className='mt-4 grid grid-cols-2 gap-2'>
-        {sorted.map(r => (
-          <button key={r.name} onClick={() => setSelected(r.name)} className='text-left p-3 bg-white rounded shadow-sm flex justify-between items-center'>
-            <div className='font-medium'>{r.name}</div>
-            <div className='text-sm text-gray-600'>{r.value}</div>
-          </button>
-        ))}
-      </div>
 
       <ReasonModal isOpen={!!selected} onClose={() => setSelected(null)} reason={selected} details={selected ? getDetailsFor(selected) : []} />
     </div>
