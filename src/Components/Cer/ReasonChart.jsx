@@ -5,7 +5,7 @@ import ReasonModal from './ReasonModal'
 
 const COLORS = ['#FF9F43', '#4366FF', '#00D084', '#845ef7', '#FF6B9D', '#FFC107']
 
-const findCandidateKey = (obj, keywords=[]) => {
+const findCandidateKey = (obj, keywords = []) => {
   if (!obj) return null
   const keys = Object.keys(obj)
   return keys.find(k => keywords.some(kw => k.toLowerCase().includes(kw)))
@@ -36,27 +36,76 @@ const ReasonChart = ({ cerData = [] }) => {
   const sorted = data.sort((a, b) => b.value - a.value).slice(0, 6)
 
   const getDetailsFor = (reasonName) => {
-    // Try to find details under possible keys or inline in the raw item
-    const candidateKeys = Object.keys(dataObj || {}).filter(k => k.toLowerCase().includes('detail') || k.toLowerCase().includes('description') || k.toLowerCase().includes('list') || k.toLowerCase().includes('items'))
+    // FIXED: First check if there's an exit_details array at the top level
+    if (dataObj?.exit_details && Array.isArray(dataObj.exit_details)) {
+      const matched = dataObj.exit_details.filter(detail => {
+        // Match by reason, exit_reason, name, or type field
+        return detail.reason === reasonName || 
+               detail.exit_reason === reasonName || 
+               detail.name === reasonName ||
+               detail.type === reasonName
+      })
+      
+      if (matched.length) {
+        // Extract descriptions from matched details
+        return matched.map(m => {
+          if (m.description) return m.description
+          if (m.detail) return m.detail
+          if (m.details) return m.details
+          if (m.comment) return m.comment
+          if (m.notes) return m.notes
+          // Return a formatted string of the object if no description field found
+          return JSON.stringify(m, null, 2)
+        })
+      }
+    }
+
+    // Fallback: Try to find details under possible keys or inline in the raw item
+    const candidateKeys = Object.keys(dataObj || {}).filter(k => 
+      k.toLowerCase().includes('detail') || 
+      k.toLowerCase().includes('description') || 
+      k.toLowerCase().includes('list') || 
+      k.toLowerCase().includes('items')
+    )
 
     // 1) If the reason entry itself has items/descriptions
     const inArr = reasonArray.find(r => r.name === reasonName) || {}
+
+    // Check direct properties
     if (Array.isArray(inArr.items) && inArr.items.length) return inArr.items
     if (Array.isArray(inArr.details) && inArr.details.length) return inArr.details
     if (Array.isArray(inArr.descriptions) && inArr.descriptions.length) return inArr.descriptions
+    if (typeof inArr.description === 'string' && inArr.description) return [inArr.description]
+    if (typeof inArr.detail === 'string' && inArr.detail) return [inArr.detail]
+
+    // Check inside 'raw' which might hold the original object
+    if (inArr.raw && typeof inArr.raw === 'object') {
+      const r = inArr.raw;
+      if (Array.isArray(r.items) && r.items.length) return r.items
+      if (Array.isArray(r.details) && r.details.length) return r.details
+      if (Array.isArray(r.descriptions) && r.descriptions.length) return r.descriptions
+      if (typeof r.description === 'string' && r.description) return [r.description]
+      if (typeof r.detail === 'string' && r.detail) return [r.detail]
+    }
 
     // 2) Look for top-level detail mapping
     for (const k of candidateKeys) {
       const candidate = dataObj[k]
       if (!candidate) continue
       // candidate may be an object keyed by reason name
-      if (candidate[reasonName]) return Array.isArray(candidate[reasonName]) ? candidate[reasonName] : [candidate[reasonName]]
+      if (candidate[reasonName]) {
+        const val = candidate[reasonName];
+        return Array.isArray(val) ? val : (typeof val === 'string' ? [val] : [JSON.stringify(val)])
+      }
       // or candidate may be grouped by timePeriod
-      if (candidate[timePeriod] && candidate[timePeriod][reasonName]) return Array.isArray(candidate[timePeriod][reasonName]) ? candidate[timePeriod][reasonName] : [candidate[timePeriod][reasonName]]
+      if (candidate[timePeriod] && candidate[timePeriod][reasonName]) {
+        const val = candidate[timePeriod][reasonName];
+        return Array.isArray(val) ? val : (typeof val === 'string' ? [val] : [JSON.stringify(val)])
+      }
       // or candidate might be an array of objects { name, description }
       if (Array.isArray(candidate)) {
         const matched = candidate.filter(c => (c.name && c.name === reasonName) || (c.reason && c.reason === reasonName))
-        if (matched.length) return matched.map(m => m.description ?? m.raw ?? m)
+        if (matched.length) return matched.map(m => m.description ?? m.detail ?? m.raw ?? JSON.stringify(m))
       }
     }
 

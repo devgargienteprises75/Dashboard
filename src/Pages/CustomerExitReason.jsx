@@ -1,15 +1,15 @@
 import React, { useContext } from 'react'
-import TopBar from '../Components/TopBar'
 import { TransportRegData } from '../Context/APIData'
 import Error from '../Components/Error'
 import Loading from '../Components/Loading'
 import Card from '../Components/Cer/Card'
-import DailyPerformanceChart from '../Components/CER/DailyPerformanceChart'
-import { OverviewChart } from '../Components/CER/PieCharts'
-import TopCards from '../Components/CER/TopCards'
-import SalesmanChart from '../Components/CER/SalesmanChart'
-import FloorChart from '../Components/CER/FloorChart'
-import ReasonChart from '../Components/CER/ReasonChart'
+import DailyPerformanceChart from '../Components/Cer/DailyPerformanceChart'
+import { OverviewChart } from '../Components/Cer/PieCharts'
+import TopCards from '../Components/Cer/TopCards'
+import SalesmanChart from '../Components/Cer/SalesmanChart'
+import FloorChart from '../Components/Cer/FloorChart'
+import ReasonChart from '../Components/Cer/ReasonChart'
+import TopBar from '../Components/TopBar'
 
 const CustomerExitReason = () => {
 
