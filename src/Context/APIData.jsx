@@ -7,6 +7,7 @@ const TransportReg = ({ children }) => {
 
     const [ transportRegData, setTransportRegData ] = useState(null)
     const [ cerData, setCerData ] = useState(null)
+    const [ gfgData, setGfgData ] = useState(null)
     const [ loading, setLoading ] = useState(null)
     const [ error, setError ] = useState(null)
     const [timePeriod, setTimePeriod] = useState('today')
@@ -16,11 +17,12 @@ const TransportReg = ({ children }) => {
             try {
                 const response = await Promise.all([
                     axios.get("http://localhost:5678/webhook/get-sheet-data"),
-                    axios.get("http://localhost:5678/webhook/get-sheet-data-cer")
+                    axios.get("http://localhost:5678/webhook/get-sheet-data-cer"),
+                    axios.get("http://localhost:5678/webhook/get-gfg-data")
                 ])
-                console.log(response[1].data);
                 setTransportRegData(response[0].data)
                 setCerData(response[1].data)
+                setGfgData(response[2].data)
             } catch (err) {
                 setError(err.message)
             }
@@ -28,7 +30,7 @@ const TransportReg = ({ children }) => {
         fetchData()
     }, [])
   return (
-    <TransportRegData.Provider value={{ transportRegData, cerData, loading, error, timePeriod, setTimePeriod }}>
+    <TransportRegData.Provider value={{ transportRegData, cerData, gfgData, loading, error, timePeriod, setTimePeriod }}>
         {children}
     </TransportRegData.Provider>
   )

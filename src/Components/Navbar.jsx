@@ -25,7 +25,6 @@ const Navbar = ({ isActive=false }) => {
            
           </NavLink>
           <NavLink to="/gofrugalreport" className={className}>
-          
             Gofrugal Reports
           </NavLink>
         </nav>
