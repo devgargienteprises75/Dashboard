@@ -66,7 +66,7 @@ const PendingTasks = ({ transportRegData, className }) => {
             >
               <div className='w-3 h-3 rounded-full bg-yellow-500 mt-1.5 flex-shrink-0 shadow-lg'></div>
               <div className='flex-1 min-w-0'>
-                <p className='text-sm font-bold text-gray-900 mb-1'>{item.category}</p>
+                <p className='text-sm font-bold text-gray-00 mb-1'>{item.category}</p>
                 <p className='text-xs text-gray-600 line-clamp-2'>{typeof item.description === 'string' ? item.description : item.description?.party_name ?? JSON.stringify(item.description)}</p>
               </div>
               <span className='text-xs font-bold text-yellow-700 bg-yellow-100 px-3 py-1.5 rounded-full whitespace-nowrap shadow-sm'>

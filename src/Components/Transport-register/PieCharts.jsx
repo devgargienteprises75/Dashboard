@@ -2,7 +2,7 @@ import React from 'react'
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts'
 
 const ProductSalesChart = ({ transportRegData }) => {
-  
+
   // Build data from context - Monthly comparison
   const chartData = transportRegData ? [
     { name: 'Bills Received', value: transportRegData[0]?.bills_received?.last_month || 0 },
@@ -34,31 +34,32 @@ const ProductSalesChart = ({ transportRegData }) => {
               animationDuration={1000}
             >
               {chartData.map((entry, index) => (
-                <Cell 
-                  key={`cell-${index}`} 
-                  fill={COLORS[index % COLORS.length]} 
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
                   stroke='#fff'
                   strokeWidth={2}
                   className='hover:opacity-80 transition-opacity duration-200'
                 />
               ))}
             </Pie>
-            <Tooltip 
-              contentStyle={{ 
-                backgroundColor: '#1F2937', 
-                border: 'none', 
-                borderRadius: '8px', 
+            <Tooltip
+              contentStyle={{
+                backgroundColor: '#1F2937',
+                border: 'none',
+                borderRadius: '8px',
                 boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
                 color: '#fff',
                 fontSize: '14px',
                 fontWeight: 600,
                 padding: '12px'
               }}
+              itemStyle={{ color: '#fff'}}
             />
-            <Legend 
-              align="center" 
-              verticalAlign="bottom" 
-              wrapperStyle={{ marginTop: 32, fontSize: '13px', fontWeight: 500 }} 
+            <Legend
+              align="center"
+              verticalAlign="bottom"
+              wrapperStyle={{ marginTop: 32, fontSize: '13px', fontWeight: 500 }}
               iconType='circle'
             />
           </PieChart>
@@ -69,7 +70,7 @@ const ProductSalesChart = ({ transportRegData }) => {
 }
 
 const TrafficChart = ({ title = "Pending Tasks", transportRegData }) => {
-  
+
   // Show pending items
   const chartData = transportRegData && transportRegData[0]?.pending ? [
     { name: 'Handover to Purchase', value: transportRegData[0]?.pending.handover_to_purchase || 0 },
@@ -102,31 +103,32 @@ const TrafficChart = ({ title = "Pending Tasks", transportRegData }) => {
               animationDuration={1000}
             >
               {chartData.map((entry, index) => (
-                <Cell 
-                  key={`cell-${index}`} 
-                  fill={COLORS[index % COLORS.length]} 
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
                   stroke='#fff'
                   strokeWidth={2}
                   className='hover:opacity-80 transition-opacity duration-200'
                 />
               ))}
             </Pie>
-            <Tooltip 
-              contentStyle={{ 
-                backgroundColor: '#1F2937', 
-                border: 'none', 
-                borderRadius: '8px', 
+            <Tooltip
+              contentStyle={{
+                backgroundColor: '#1F2937',
+                border: 'none',
+                borderRadius: '8px',
                 boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
                 color: '#fff',
                 fontSize: '14px',
                 fontWeight: 600,
                 padding: '12px'
               }}
+              itemStyle={{ color: '#fff' }}
             />
-            <Legend 
-              align="center" 
-              verticalAlign="bottom" 
-              wrapperStyle={{ marginTop: 32, fontSize: '13px', fontWeight: 500 }} 
+            <Legend
+              align="center"
+              verticalAlign="bottom"
+              wrapperStyle={{ marginTop: 32, fontSize: '13px', fontWeight: 500 }}
               iconType='circle'
             />
           </PieChart>

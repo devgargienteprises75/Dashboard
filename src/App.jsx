@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import AppLayout from './Pages/AppLayout'
 import CustomerExitReason from './Pages/CustomerExitReason'
 import TransportRegister from './Pages/TransportRegister'
+import GofrugalReport from './Pages/GofrugalReport'
 
 const App = () => {
 
@@ -19,6 +20,10 @@ const App = () => {
         {
           path: "/customerexitreason",
           element: <CustomerExitReason />
+        },
+        {
+          path: "/gofrugalreport",
+          element: <GofrugalReport />
         }
       ]
     }
