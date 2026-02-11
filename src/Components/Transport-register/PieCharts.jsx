@@ -54,7 +54,6 @@ const ProductSalesChart = ({ transportRegData }) => {
                 fontWeight: 600,
                 padding: '12px'
               }}
-              itemStyle={{ color: '#fff'}}
             />
             <Legend
               align="center"
@@ -123,7 +122,6 @@ const TrafficChart = ({ title = "Pending Tasks", transportRegData }) => {
                 fontWeight: 600,
                 padding: '12px'
               }}
-              itemStyle={{ color: '#fff' }}
             />
             <Legend
               align="center"
