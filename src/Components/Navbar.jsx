@@ -24,7 +24,7 @@ const Navbar = ({ isActive=false }) => {
             Customer Exit Reason
            
           </NavLink>
-          <NavLink to="/gofrugalreport" className={className}>
+          <NavLink to="/gofrugalreports" className={className}>
             Gofrugal Reports
           </NavLink>
         </nav>

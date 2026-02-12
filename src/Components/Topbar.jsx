@@ -8,7 +8,7 @@ const TopBar = () => {
   const [active, setActive] = useState(false)
 
   return (
-    <div className="flex items-center justify-between mb-6">
+    <div className="sticky top-0 z-20 flex items-center justify-between mb-6 bg-[#fff] py-4 px-6 rounded-lg shadow-xs">
       <div>
         <h1 className="text-5xl font-bold text-gray-900">Dashboard</h1>
       </div>
@@ -30,7 +30,7 @@ const TopBar = () => {
           <option value="last_week">Last Week</option>
           <option value="last_month">Last Month</option>
         </select>
-        <ChevronDown className={`absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none w-5 h-5 text-gray-600 ${active ? 'transform rotate-0' : 'transform rotate-180'} duration-200`} />
+        <ChevronDown className={`absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer pointer-events-none w-5 h-5 text-gray-600 ${active ? 'transform rotate-180' : 'transform rotate-0'} duration-200`} />
       </div>
     </div>
   )

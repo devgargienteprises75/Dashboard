@@ -18,7 +18,7 @@ const TransportReg = ({ children }) => {
                 const response = await Promise.all([
                     axios.get("http://localhost:5678/webhook/get-sheet-data"),
                     axios.get("http://localhost:5678/webhook/get-sheet-data-cer"),
-                    axios.get("http://localhost:5678/webhook/get-gfg-data")
+                    axios.get('http://localhost:5678/webhook/get-gfg-data')
                 ])
                 setTransportRegData(response[0].data)
                 setCerData(response[1].data)

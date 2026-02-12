@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import AppLayout from './Pages/AppLayout'
@@ -22,7 +21,7 @@ const App = () => {
           element: <CustomerExitReason />
         },
         {
-          path: "/gofrugalreport",
+          path: "/gofrugalreports",
           element: <GofrugalReport />
         }
       ]
