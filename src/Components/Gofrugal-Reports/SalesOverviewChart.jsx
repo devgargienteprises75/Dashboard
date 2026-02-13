@@ -3,8 +3,8 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 
 const SalesOverviewChart = ({ chartData, periodLabel }) => {
   return (
-    <div className="col-span-2 bg-gradient-to-br from-white to-orange-50 rounded-xl p-6 shadow-lg border border-orange-100">
-      <div className="flex items-center justify-between mb-4">
+    <div className="bg-gradient-to-br from-white to-orange-50 rounded-xl p-4 sm:p-6 shadow-lg border border-orange-100 xl:col-span-2">
+      <div className="flex items-start sm:items-center justify-between gap-3 mb-4">
         <h2 className="text-xl font-bold text-gray-900">Sales Overview</h2>
         <span className="px-3 py-1 bg-orange-100 text-orange-700 text-xs font-semibold rounded-full uppercase tracking-wide">
           {periodLabel}

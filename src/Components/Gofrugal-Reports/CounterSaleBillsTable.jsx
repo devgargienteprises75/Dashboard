@@ -2,14 +2,14 @@ import React from 'react'
 
 const CounterSaleBillsTable = ({ counterSaleBills, getBillMobile, billsWithoutMobile }) => {
   return (
-    <div className="col-span-1 h-full row-span-3 bg-white rounded-xl p-6 shadow-sm border border-gray-100 overflow-hidden">
-      <div className="flex items-center justify-between mb-3">
+    <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-100 overflow-hidden">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-3">
         <h2 className="text-lg font-bold text-gray-900">Counter Sale Bills</h2>
         <span className="text-xs font-medium text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
           Bills without mobile no.: {billsWithoutMobile}
         </span>
       </div>
-      <div className="overflow-auto h-[95%] border border-gray-300 rounded-lg">
+      <div className="overflow-auto max-h-80 border border-gray-300 rounded-lg">
         <table className="min-w-full text-xs">
           <thead className="bg-gray-50 sticky top-0 z-10">
             <tr>

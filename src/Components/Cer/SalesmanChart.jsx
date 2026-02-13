@@ -35,12 +35,12 @@ const SalesmanChart = ({ cerData = [] }) => {
   const periodLabel = timePeriod ? timePeriod.replace(/_/g, ' ') : 'selected period'
 
   if (!sorted.length) return (
-    <div className='bg-gradient-to-br from-white to-blue-50 rounded-xl p-8 shadow-lg border border-blue-100 row-span-2'>
+    <div className='bg-gradient-to-br from-white to-blue-50 rounded-xl p-4 sm:p-6 lg:p-8 shadow-lg border border-blue-100'>
       <div className='flex items-center justify-between mb-6'>
         <h2 className='text-2xl font-extrabold text-gray-900 tracking-tight'>Exits by Salesman</h2>
         <span className='px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full'>{periodLabel}</span>
       </div>
-      <div className='flex items-center justify-center h-[550px] text-gray-500 text-sm'>
+      <div className='flex items-center justify-center min-h-56 sm:min-h-72 lg:min-h-[550px] text-gray-500 text-sm'>
         <div className='text-center'>
           <svg className='w-16 h-16 mx-auto mb-4 text-gray-300' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
             <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4' />
@@ -52,7 +52,7 @@ const SalesmanChart = ({ cerData = [] }) => {
   )
 
   return (
-    <div className='bg-gradient-to-br from-white to-blue-50 rounded-xl p-8 shadow-lg border border-blue-100 row-span-2 hover:shadow-xl transition-shadow duration-300'>
+    <div className='bg-gradient-to-br from-white to-blue-50 rounded-xl p-4 sm:p-6 lg:p-8 shadow-lg border border-blue-100 hover:shadow-xl transition-shadow duration-300'>
       <div className='flex items-center justify-between mb-6'>
         <h2 className='text-2xl font-extrabold text-gray-900 tracking-tight'>Exits by Salesman</h2>
         <span className='px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full uppercase tracking-wide'>{periodLabel}</span>

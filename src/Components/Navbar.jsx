@@ -1,36 +1,33 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-const Navbar = ({ isActive=false }) => {
-
-  const className = `${isActive ? 'text-orange-400 bg-orange-50 border-l-4' : 'text-gray-600'} flex items-center gap-3 px-4 py-3 rounded-lg font-medium `
+const Navbar = () => {
+  const getClassName = ({ isActive }) =>
+    `${isActive ? 'text-orange-500 bg-orange-50 border-orange-300' : 'text-gray-600 hover:bg-gray-100'} border px-3 py-2 lg:px-4 lg:py-3 rounded-lg font-medium text-sm sm:text-base transition-colors`
 
   return (
-  <div className="fixed left-0 top-0 h-full w-[15%] bg-white border-r border-gray-300 p-6">
-    <div className="flex items-center gap-2 mb-12">
-        <h1 className='text-4xl font-bold text-gray-800'>Reports</h1>
-    </div>
-
-    <div className="space-y-8">
-      <div>
-        <p className="text-xs font-semibold text-gray-400 mb-4 uppercase">Menu</p>
-        <nav className="space-y-2">
-          <NavLink to="/" className={className}>
-            
-            Transport Register
-          </NavLink >
-          <NavLink to="/customerexitreason" className={className}>
-          
-            Customer Exit Reason
-           
-          </NavLink>
-          <NavLink to="/gofrugalreports" className={className}>
-            Gofrugal Reports
-          </NavLink>
-        </nav>
+    <aside className="w-full border-b border-gray-300 bg-white px-4 py-4 lg:fixed lg:left-0 lg:top-0 lg:h-screen lg:w-64 lg:border-b-0 lg:border-r lg:p-6">
+      <div className="mb-4 lg:mb-12">
+        <h1 className='text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800'>Reports</h1>
       </div>
-    </div>
-  </div>
+
+      <div className="space-y-4 lg:space-y-8">
+        <div>
+          <p className="text-xs font-semibold text-gray-400 mb-3 lg:mb-4 uppercase">Menu</p>
+          <nav className="flex flex-wrap gap-2 lg:flex-col lg:gap-2">
+            <NavLink to="/" className={getClassName}>
+              Transport Register
+            </NavLink>
+            <NavLink to="/customerexitreason" className={getClassName}>
+              Customer Exit Reason
+            </NavLink>
+            <NavLink to="/gofrugalreports" className={getClassName}>
+              Gofrugal Reports
+            </NavLink>
+          </nav>
+        </div>
+      </div>
+    </aside>
   )
 }
 

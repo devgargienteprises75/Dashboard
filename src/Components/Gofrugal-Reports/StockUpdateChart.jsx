@@ -12,7 +12,7 @@ const StockUpdateChart = ({ byUser }) => {
   const hasData = data.length > 0
 
   return (
-    <div className="col-span-2 bg-gradient-to-br from-indigo-50 to-white rounded-xl p-6 shadow-lg border border-indigo-100">
+    <div className="bg-gradient-to-br from-indigo-50 to-white rounded-xl p-4 sm:p-6 shadow-lg border border-indigo-100 xl:col-span-2">
       <h2 className="text-lg font-bold text-gray-900 mb-4">Stock Updates by User</h2>
       {hasData ? (
         <div className="h-80">

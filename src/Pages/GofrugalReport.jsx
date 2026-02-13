@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import TopBar from '../Components/TopBar'
+import TopBar from '../Components/Topbar'
 import { TransportRegData } from '../Context/APIData'
 import Error from '../Components/Error'
 import Loading from '../Components/Loading'
@@ -37,7 +37,7 @@ const SalesRegister = () => {
 
   if (!gfgData) {
     return (
-      <main className='w-[85%] bg-[#fff] absolute right-0 p-6'>
+      <main className='w-full bg-[#fff] p-3 sm:p-4 lg:p-6'>
         {error && <Error error={error} />}
         <TopBar />
         <Loading />
@@ -109,11 +109,11 @@ const SalesRegister = () => {
   }
 
   return (
-    <main className='w-[85%] bg-[#fff] absolute right-0 p-6 min-h-screen'>
+    <main className='w-full bg-[#fff] p-3 sm:p-4 lg:p-6 min-h-screen'>
       {error && <Error error={error} />}
       <TopBar />
 
-      <div className="flex justify-between items-center mb-6">
+      <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">
             {selectedPeriod}
@@ -127,14 +127,14 @@ const SalesRegister = () => {
           </p>
         </div>
 
-        <div className="relative inline-block">
+        <div className="relative inline-block w-full lg:w-auto">
           <select 
             value={selectedPeriod} 
             onChange={handleTimePeriodChange} 
             onClick={() => {
               active ? setActive(false) : setActive(true)
             }}
-            className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2.5 pr-10 cursor-pointer font-medium text-gray-700 hover:bg-gray-50"
+            className="w-full appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2.5 pr-10 cursor-pointer font-medium text-gray-700 hover:bg-gray-50 lg:w-auto"
           >
             <option value="Sales Register">Sales Register</option>
             <option value="Sales Return">Sales Return</option>
@@ -157,7 +157,7 @@ const SalesRegister = () => {
             blankBillNoCount={blankBillNoCount}
           />
 
-          <div className="grid grid-cols-3 gap-4 mt-6 mb-6">
+          <div className="grid grid-cols-1 gap-4 mt-6 mb-6 xl:grid-cols-3">
             <SalesOverviewChart chartData={chartData} periodLabel={periodLabel} />
             <CounterSaleBillsTable
               counterSaleBills={counterSaleBills}
@@ -190,7 +190,7 @@ const SalesRegister = () => {
             totalChanges={totalChanges}
             priceChangeByUser={priceChangeByUser}
           />
-          <div className="grid grid-cols-3 gap-4 mt-6 mb-6">
+          <div className="grid grid-cols-1 gap-4 mt-6 mb-6 xl:grid-cols-3">
             <PriceChangeChart byUser={priceChangeByUser} />
             <UserPriceChangeTable 
               byUser={priceChangeByUser}
@@ -212,7 +212,7 @@ const SalesRegister = () => {
             totalUpdates={totalStockUpdates}
             userCount={userCount}
           />
-          <div className="grid grid-cols-3 gap-4 mt-6 mb-6">
+          <div className="grid grid-cols-1 gap-4 mt-6 mb-6 xl:grid-cols-3">
             <StockUpdateChart byUser={stockUpdateByUser} />
             <UserStockUpdateTable 
               byUser={stockUpdateByUser}

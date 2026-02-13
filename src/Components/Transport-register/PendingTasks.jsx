@@ -9,14 +9,14 @@ const PendingTasks = ({ transportRegData, className }) => {
   
   if (!transportRegData || !transportRegData[0]?.pending_details) {
     return (
-      <div className={`bg-gradient-to-br from-white to-yellow-50 rounded-xl p-8 shadow-lg border border-yellow-800 ${className}`}>
+      <div className={`bg-gradient-to-br from-white to-yellow-50 rounded-xl p-4 sm:p-6 lg:p-8 shadow-lg border border-yellow-800 ${className}`}>
         <div className='flex items-center gap-3 mb-6'>
           <svg className='w-7 h-7 text-yellow-500' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
             <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' />
           </svg>
-          <h2 className='text-2xl font-extrabold text-gray-900 tracking-tight'>Pending Tasks</h2>
+          <h2 className='text-xl sm:text-2xl font-extrabold text-gray-900 tracking-tight'>Pending Tasks</h2>
         </div>
-        <div className='flex items-center justify-center h-[550px] text-gray-500 text-sm'>
+        <div className='flex items-center justify-center min-h-56 sm:min-h-72 lg:min-h-[550px] text-gray-500 text-sm'>
           <div className='text-center'>
             <svg className='w-16 h-16 mx-auto mb-4 text-gray-300' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
               <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' />
@@ -41,14 +41,14 @@ const PendingTasks = ({ transportRegData, className }) => {
   })
 
   return (
-    <div className={`bg-gradient-to-br from-white to-yellow-50 rounded-xl p-8 shadow-lg border border-yellow-100 hover:shadow-xl transition-shadow duration-300 ${className}`}>
-      <div className='flex items-center justify-between mb-6'>
+    <div className={`bg-gradient-to-br from-white to-yellow-50 rounded-xl p-4 sm:p-6 lg:p-8 shadow-lg border border-yellow-100 hover:shadow-xl transition-shadow duration-300 ${className}`}>
+      <div className='flex items-center justify-between mb-6 gap-2'>
         <div className='flex items-center gap-3'>
           <div className='p-2 bg-yellow-100 rounded-lg'>
             <AlertCircle size={24} className='text-yellow-600' />
           </div>
           <div>
-            <h2 className='text-2xl font-extrabold text-gray-900 tracking-tight'>Pending Tasks</h2>
+            <h2 className='text-xl sm:text-2xl font-extrabold text-gray-900 tracking-tight'>Pending Tasks</h2>
             <p className='text-sm text-gray-600 font-medium'>{allPendingItems.length} items require attention</p>
           </div>
         </div>
@@ -57,7 +57,7 @@ const PendingTasks = ({ transportRegData, className }) => {
       {allPendingItems.length === 0 ? (
         <p className='text-gray-500 text-center py-8'>No pending tasks</p>
       ) : (
-        <div className='pending-detail space-y-3 max-h-[68vh] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-yellow-300 scrollbar-track-yellow-50'>
+        <div className='pending-detail space-y-3 max-h-[60vh] overflow-y-auto pr-1 sm:pr-2 scrollbar-thin scrollbar-thumb-yellow-300 scrollbar-track-yellow-50'>
           {allPendingItems.map((item) => (
             <div 
             key={item.id} 
@@ -69,7 +69,7 @@ const PendingTasks = ({ transportRegData, className }) => {
                 <p className='text-sm font-bold text-gray-00 mb-1'>{item.category}</p>
                 <p className='text-xs text-gray-600 line-clamp-2'>{typeof item.description === 'string' ? item.description : item.description?.party_name ?? JSON.stringify(item.description)}</p>
               </div>
-              <span className='text-xs font-bold text-yellow-700 bg-yellow-100 px-3 py-1.5 rounded-full whitespace-nowrap shadow-sm'>
+              <span className='text-xs font-bold text-yellow-700 bg-yellow-100 px-2 sm:px-3 py-1.5 rounded-full shadow-sm text-center'>
                 {item.status}
               </span>
             </div>

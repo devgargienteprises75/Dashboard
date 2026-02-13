@@ -6,7 +6,7 @@ const UserPriceChangeTable = ({ byUser, totalChanges }) => {
   const hasData = userEntries.length > 0
 
   return (
-    <div className="col-span-2 bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+    <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-gray-200 xl:col-span-2">
       <div className="flex items-center gap-2 mb-4">
         <User className="w-5 h-5 text-purple-600" />
         <h2 className="text-lg font-bold text-gray-900">Top Contributors</h2>

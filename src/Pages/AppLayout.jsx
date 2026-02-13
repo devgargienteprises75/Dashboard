@@ -4,9 +4,11 @@ import Navbar from '../Components/Navbar'
 
 const AppLayout = () => {
   return (
-    <main className=' w-full flex'>
-          <Navbar />
-          <Outlet />
+    <main className='min-h-screen w-full bg-gray-50 lg:pl-64'>
+      <Navbar />
+      <div className='w-full'>
+        <Outlet />
+      </div>
     </main>
   )
 }

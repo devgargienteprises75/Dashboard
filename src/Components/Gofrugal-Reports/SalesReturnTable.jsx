@@ -2,9 +2,9 @@ import React from 'react'
 
 const SalesReturnTable = ({ returnDetails }) => {
   return (
-    <div className="col-span-2 h-[60vh] bg-white rounded-xl p-6 shadow-sm border border-gray-100 overflow-hidden">
+    <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-100 overflow-hidden xl:col-span-2">
       <h2 className="text-lg font-bold text-gray-900 mb-3">Sales Return Details</h2>
-      <div className="overflow-auto h-[92%] border border-gray-300 rounded-lg">
+      <div className="overflow-auto max-h-[60vh] border border-gray-300 rounded-lg">
         <table className="min-w-full text-xs">
           <thead className="bg-gray-50 sticky top-0 z-10">
             <tr>

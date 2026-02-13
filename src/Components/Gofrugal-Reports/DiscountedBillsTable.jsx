@@ -2,7 +2,7 @@ import React from 'react'
 
 const DiscountedBillsTable = ({ discountedBillNumbers }) => {
   return (
-    <div className="col-span-2 h-full row-span-2 bg-white rounded-xl p-6 shadow-sm border border-gray-100 overflow-hidden">
+    <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-100 overflow-hidden xl:col-span-2">
       <h2 className="text-lg font-bold text-gray-900 mb-3">Discounted Bills</h2>
       <div className="overflow-auto max-h-64 border border-gray-300 rounded-lg">
         <table className="min-w-full text-xs">

@@ -53,7 +53,7 @@ const CustomerExitReason = () => {
   }
 
   return (
-    <div className='w-[85%] bg-[#fff] absolute right-0 p-6'>
+    <div className='w-full bg-[#fff] p-3 sm:p-4 lg:p-6'>
       {error && <Error error={error}/>}
       <TopBar />
       {cerData ? (
@@ -63,9 +63,9 @@ const CustomerExitReason = () => {
             totalExits: (toNumber(dataObj?.total_exits) ?? toNumber(dataObj?.customer_exits)) ?? '0',
           }} />
 
-          <div className="charts grid grid-cols-3 h-[80vh] grid-rows-2 gap-4">
-            <DailyPerformanceChart cerData={cerData} className="col-span-2" />
-            <SalesmanChart cerData={cerData} className="col-span-2" />
+          <div className="charts grid grid-cols-1 gap-4 xl:grid-cols-3">
+            <DailyPerformanceChart cerData={cerData} className="xl:col-span-2" />
+            <SalesmanChart cerData={cerData} className="xl:col-span-2" />
             <FloorChart cerData={cerData} />
             <ReasonChart cerData={cerData} />
           </div>

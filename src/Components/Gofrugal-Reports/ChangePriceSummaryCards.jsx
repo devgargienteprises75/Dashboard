@@ -6,7 +6,7 @@ const ChangePriceSummaryCards = ({ totalChanges, priceChangeByUser }) => {
   const avgPerUser = userCount > 0 ? Math.round(totalChanges / userCount) : 0
 
   return (
-    <div className="grid grid-cols-3 gap-6 mb-6">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 mb-6">
       {/* Total Changes */}
       <div className="bg-gradient-to-br from-blue-50 to-white rounded-xl p-6 shadow-lg border border-blue-100">
         <div className="flex items-center justify-between mb-4">
