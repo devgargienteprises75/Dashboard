@@ -1,15 +1,15 @@
 import React from 'react'
 import { User } from 'lucide-react'
 
-const UserPriceChangeTable = ({ byUser }) => {
-  const userEntries = Object.entries(byUser)
+const UserPriceChangeTable = ({ byUser, totalChanges }) => {
+  const userEntries = Object.entries(byUser).sort((a, b) => b[1] - a[1])
   const hasData = userEntries.length > 0
 
   return (
     <div className="col-span-2 bg-white rounded-xl p-6 shadow-lg border border-gray-200">
       <div className="flex items-center gap-2 mb-4">
         <User className="w-5 h-5 text-purple-600" />
-        <h2 className="text-lg font-bold text-gray-900">Price Changes by User</h2>
+        <h2 className="text-lg font-bold text-gray-900">Top Contributors</h2>
       </div>
       
       {hasData ? (
@@ -18,23 +18,28 @@ const UserPriceChangeTable = ({ byUser }) => {
             <thead className="bg-gray-50 sticky top-0">
               <tr>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Rank
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   User Name
                 </th>
                 <th className="px-4 py-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  Total Changes
+                  Changes
                 </th>
                 <th className="px-4 py-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  Percentage
+                  Share
                 </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {userEntries.map(([userName, changes], index) => {
-                const totalChanges = userEntries.reduce((sum, [, val]) => sum + val, 0)
                 const percentage = ((changes / totalChanges) * 100).toFixed(1)
                 
                 return (
                   <tr key={index} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-4 py-3 text-sm font-bold text-gray-900">
+                      #{index + 1}
+                    </td>
                     <td className="px-4 py-3 text-sm font-medium text-gray-900">
                       {userName}
                     </td>

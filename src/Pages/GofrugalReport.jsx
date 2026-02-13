@@ -17,6 +17,7 @@ import StockUpdateSummaryCards from '../Components/Gofrugal-Reports/StockUpdateS
 import StockUpdateChart from '../Components/Gofrugal-Reports/StockUpdateChart'
 import UserStockUpdateTable from '../Components/Gofrugal-Reports/UserStockUpdateTable'
 import { ChevronUp } from 'lucide-react'
+import ItemPriceChangeTable from '../Components/Gofrugal-Reports/ItemPriceChangeTable'
 
 const SalesRegister = () => {
 
@@ -70,11 +71,10 @@ const SalesRegister = () => {
 
   // Change Selling Price Data
   const totalChanges = changeSellingPrice.totalChanges || 0
-  const priceIncreases = changeSellingPrice.priceIncreases || 0
-  const priceDecreases = changeSellingPrice.priceDecreases || 0
   const priceChangeByUser = changeSellingPrice.byUser || {}
+  const priceChangeItems = changeSellingPrice.items || []
 
-  // Stock Update Data
+  // Stock Update Data  
   const totalStockUpdates = stockUpdate.totalUpdates || 0
   const stockUpdateByUser = stockUpdate.byUser || {}
   const userCount = Object.keys(stockUpdateByUser).length
@@ -188,16 +188,19 @@ const SalesRegister = () => {
         <>
           <ChangePriceSummaryCards
             totalChanges={totalChanges}
-            priceIncreases={priceIncreases}
-            priceDecreases={priceDecreases}
+            priceChangeByUser={priceChangeByUser}
           />
           <div className="grid grid-cols-3 gap-4 mt-6 mb-6">
-            <PriceChangeChart
+            <PriceChangeChart byUser={priceChangeByUser} />
+            <UserPriceChangeTable 
+              byUser={priceChangeByUser}
               totalChanges={totalChanges}
-              priceIncreases={priceIncreases}
-              priceDecreases={priceDecreases}
             />
-            <UserPriceChangeTable byUser={priceChangeByUser} />
+          </div>
+          
+          {/* Item-wise Price Change Table */}
+          <div className="mt-6">
+            <ItemPriceChangeTable items={priceChangeItems} />
           </div>
         </>
       )}
