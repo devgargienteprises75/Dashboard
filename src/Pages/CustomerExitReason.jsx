@@ -12,6 +12,8 @@ import TopBar from '../Components/TopBar'
 const CustomerExitReason = () => {
 
   const { cerData, loading, error, timePeriod } = useContext(TransportRegData)
+  console.log(cerData);
+  
 
   // pick the first non-empty object from cerData (handles arrays where first item might be empty)
   const getFirstData = (arr) => {
