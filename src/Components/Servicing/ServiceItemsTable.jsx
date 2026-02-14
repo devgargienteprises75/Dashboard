@@ -40,11 +40,11 @@ const ServiceItemsTable = ({ items }) => {
   const hasData = items && items.length > 0
 
   return (
-    <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
+    <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-gray-200">
+      <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-2 min-w-0">
           <Wrench className="w-5 h-5 text-blue-600" />
-          <h2 className="text-lg font-bold text-gray-900">Service Receipts</h2>
+          <h2 className="text-lg font-bold text-gray-900 truncate">Service Receipts</h2>
           <span className="ml-2 px-2.5 py-0.5 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
             {filteredItems.length} items
           </span>
@@ -54,8 +54,8 @@ const ServiceItemsTable = ({ items }) => {
       {hasData ? (
         <>
           {/* Filters */}
-          <div className="flex gap-3 mb-4">
-            <div className="flex-1 relative">
+          <div className="mb-4 grid grid-cols-1 gap-3 lg:grid-cols-12">
+            <div className="relative lg:col-span-6">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               <input
                 type="text"
@@ -65,32 +65,34 @@ const ServiceItemsTable = ({ items }) => {
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-            <select
-              value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="all">All Status</option>
-              <option value="PENDING">Pending</option>
-              <option value="RESOLVED">Resolved</option>
-              <option value="IN PROGRESS">In Progress</option>
-              <option value="CANCELLED">Cancelled</option>
-              <option value="ON HOLD">On Hold</option>
-            </select>
-            <select
-              value={filterWarranty}
-              onChange={(e) => setFilterWarranty(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="all">All Warranty</option>
-              <option value="YES">Under Warranty</option>
-              <option value="NO">Out of Warranty</option>
-            </select>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:col-span-6">
+              <select
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="all">All Status</option>
+                <option value="PENDING">Pending</option>
+                <option value="RESOLVED">Resolved</option>
+                <option value="IN PROGRESS">In Progress</option>
+                <option value="CANCELLED">Cancelled</option>
+                <option value="ON HOLD">On Hold</option>
+              </select>
+              <select
+                value={filterWarranty}
+                onChange={(e) => setFilterWarranty(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="all">All Warranty</option>
+                <option value="YES">Under Warranty</option>
+                <option value="NO">Out of Warranty</option>
+              </select>
+            </div>
           </div>
 
           {/* Table */}
-          <div className="overflow-auto max-h-[600px]">
-            <table className="w-full">
+          <div className="overflow-x-auto overflow-y-auto max-h-[600px]">
+            <table className="w-full min-w-[900px]">
               <thead className="bg-gray-50 sticky top-0">
                 <tr>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">

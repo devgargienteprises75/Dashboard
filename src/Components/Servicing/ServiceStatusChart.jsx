@@ -19,10 +19,10 @@ const ServiceStatusChart = ({ byStatus, totalReceipts }) => {
   const hasData = data.length > 0
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-white rounded-xl p-6 shadow-lg border border-blue-100">
+    <div className="bg-gradient-to-br from-blue-50 to-white rounded-xl p-4 sm:p-6 shadow-lg border border-blue-100">
       <h2 className="text-lg font-bold text-gray-900 mb-4">Status Breakdown</h2>
       {hasData ? (
-        <div className="h-80">
+        <div className="h-72 sm:h-80">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
@@ -30,8 +30,8 @@ const ServiceStatusChart = ({ byStatus, totalReceipts }) => {
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                outerRadius={100}
+                label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
+                outerRadius={85}
                 fill="#8884d8"
                 dataKey="value"
               >
@@ -40,12 +40,17 @@ const ServiceStatusChart = ({ byStatus, totalReceipts }) => {
                 ))}
               </Pie>
               <Tooltip />
-              <Legend />
+              <Legend
+                wrapperStyle={{ fontSize: 12 }}
+                layout="horizontal"
+                verticalAlign="bottom"
+                align="center"
+              />
             </PieChart>
           </ResponsiveContainer>
         </div>
       ) : (
-        <div className="flex items-center justify-center h-80 text-gray-500 text-sm">
+        <div className="flex items-center justify-center h-72 sm:h-80 text-gray-500 text-sm">
           No status data available.
         </div>
       )}

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import TopBar from '../Components/TopBar'
 import { TransportRegData } from '../Context/APIData'
 import Error from '../Components/Error'
@@ -7,11 +7,9 @@ import ServiceSummaryCards from '../Components/Servicing/ServiceSummaryCards'
 import ServiceStatusChart from '../Components/Servicing/ServiceStatusChart'
 import WarrantyChart from '../Components/Servicing/WarrantyChart'
 import ServiceItemsTable from '../Components/Servicing/ServiceItemsTable'
-import { ChevronUp } from 'lucide-react'
 
 const Servicing = () => {
   const { servicingData, error, timePeriod } = useContext(TransportRegData)
-  const [active, setActive] = useState(false)
   console.log(servicingData);
   
 
@@ -26,7 +24,7 @@ const Servicing = () => {
 
   if (!servicingData) {
     return (
-      <main className='w-[85%] bg-[#fff] absolute right-0 p-6'>
+      <main className='w-full bg-[#fff] p-3 sm:p-4 lg:p-6 min-h-screen'>
         {error && <Error error={error} />}
         <TopBar />
         <Loading />
@@ -49,7 +47,7 @@ const Servicing = () => {
     : 'selected period'
 
   return (
-    <main className='w-[85%] bg-[#fff] absolute right-0 p-6 min-h-screen'>
+    <main className='w-full bg-[#fff] p-3 sm:p-4 lg:p-6 min-h-screen'>
       {error && <Error error={error} />}
       <TopBar />
 
@@ -72,7 +70,7 @@ const Servicing = () => {
       />
 
       {/* Charts Row */}
-      <div className="grid grid-cols-2 gap-6 mt-6 mb-6">
+      <div className="grid grid-cols-1 gap-4 mt-6 mb-6 xl:grid-cols-2">
         <ServiceStatusChart byStatus={byStatus} totalReceipts={totalReceipts} />
         <WarrantyChart warranty={warranty} />
       </div>
