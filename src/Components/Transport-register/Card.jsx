@@ -1,11 +1,12 @@
 import React from 'react'
 
-
-const Card = ({ title, value, index = 0}) => {
+const Card = ({ title, value }) => {
   return (
-    <div className={`min-h-32 w-full flex flex-col justify-center items-center bg-gradient-to-br from-orange-100 to-white p-4 sm:p-5 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02]`}>
-      <h1 className='text-base sm:text-lg lg:text-xl font-extrabold text-center uppercase mb-3 text-[#444] tracking-wider'>{title}</h1>
-      <h2 className='text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#444] tracking-tight drop-shadow-lg'>{value ?? 0}</h2>
+    <div className='min-h-32 w-full rounded-2xl border border-orange-100 bg-gradient-to-br from-orange-200 to-white p-4 shadow-md sm:p-5'>
+      <div className='flex h-full flex-col justify-between gap-2'>
+        <h1 className='text-xs font-semibold uppercase tracking-wide text-orange-700 sm:text-sm'>{title}</h1>
+        <h2 className='text-3xl font-extrabold text-gray-900 sm:text-4xl'>{value ?? 0}</h2>
+      </div>
     </div>
   )
 }

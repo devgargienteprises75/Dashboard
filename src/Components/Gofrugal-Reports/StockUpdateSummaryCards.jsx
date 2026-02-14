@@ -1,45 +1,47 @@
 import React from 'react'
 import { Package, Users, TrendingUp } from 'lucide-react'
 
+const cardClass =
+  'rounded-2xl border border-orange-100 bg-gradient-to-br from-orange-200 to-white p-4 shadow-md sm:p-6'
+
+const titleClass = 'text-sm font-semibold uppercase tracking-wide text-orange-700'
+const valueClass = 'mt-2 text-4xl font-extrabold text-gray-900'
+const subClass = 'mt-2 text-sm text-gray-700'
+
 const StockUpdateSummaryCards = ({ totalUpdates, userCount }) => {
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 mb-6">
-      {/* Total Updates */}
-      <div className="bg-gradient-to-br from-indigo-50 to-white rounded-xl p-6 shadow-lg border border-indigo-100">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-sm font-semibold text-gray-600 uppercase">Total Updates</h3>
-          <div className="p-3 bg-indigo-100 rounded-lg">
-            <Package className="w-6 h-6 text-indigo-600" />
+    <div className='mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3'>
+      <div className={cardClass}>
+        <div className='mb-4 flex items-center justify-between'>
+          <h3 className={titleClass}>Total Updates</h3>
+          <div className='rounded-xl bg-orange-100 p-3'>
+            <Package className='h-6 w-6 text-orange-600' />
           </div>
         </div>
-        <p className="text-4xl font-bold text-indigo-600">{totalUpdates}</p>
-        <p className="text-sm text-gray-500 mt-2">Stock modifications</p>
+        <p className={valueClass}>{totalUpdates}</p>
+        <p className={subClass}>Stock modifications</p>
       </div>
 
-      {/* Active Users */}
-      <div className="bg-gradient-to-br from-cyan-50 to-white rounded-xl p-6 shadow-lg border border-cyan-100">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-sm font-semibold text-gray-600 uppercase">Active Users</h3>
-          <div className="p-3 bg-cyan-100 rounded-lg">
-            <Users className="w-6 h-6 text-cyan-600" />
+      <div className={cardClass}>
+        <div className='mb-4 flex items-center justify-between'>
+          <h3 className={titleClass}>Active Users</h3>
+          <div className='rounded-xl bg-orange-100 p-3'>
+            <Users className='h-6 w-6 text-orange-600' />
           </div>
         </div>
-        <p className="text-4xl font-bold text-cyan-600">{userCount}</p>
-        <p className="text-sm text-gray-500 mt-2">Users updating stock</p>
+        <p className={valueClass}>{userCount}</p>
+        <p className={subClass}>Users updating stock</p>
       </div>
 
-      {/* Average per User */}
-      <div className="bg-gradient-to-br from-emerald-50 to-white rounded-xl p-6 shadow-lg border border-emerald-100">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-sm font-semibold text-gray-600 uppercase">Avg per User</h3>
-          <div className="p-3 bg-emerald-100 rounded-lg">
-            <TrendingUp className="w-6 h-6 text-emerald-600" />
+      <div className={cardClass}>
+        <div className='mb-4 flex items-center justify-between'>
+          <h3 className={titleClass}>Avg per User</h3>
+          <div className='rounded-xl bg-orange-100 p-3'>
+            <TrendingUp className='h-6 w-6 text-orange-600' />
           </div>
         </div>
-        <p className="text-4xl font-bold text-emerald-600">
-          {userCount > 0 ? Math.round(totalUpdates / userCount) : 0}
-        </p>
-        <p className="text-sm text-gray-500 mt-2">Updates per user</p>
+        <p className={valueClass}>{userCount > 0 ? Math.round(totalUpdates / userCount) : 0}</p>
+        <p className={subClass}>Updates per user</p>
       </div>
     </div>
   )

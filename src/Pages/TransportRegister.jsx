@@ -26,12 +26,13 @@ const TransportRegister = () => {
       {error && <Error error={error} />}
         <TopBar />
         {transportRegData && (
-          <div className="crds mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-5">
+          <div className="crds mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
             <Card title="Bill Received" value={transportRegData && transportRegData[0]?.bills_received?.[timePeriod]} index={0}/>
             <Card title="Handover to Purchase" value={transportRegData && transportRegData[0]?.handover_to_purchase?.[timePeriod]} index={1}/>
             <Card title="MR generate" value={transportRegData && transportRegData[0]?.mr_created?.[timePeriod]} index={2}/>
-            <Card title="Handover to Accounts" value={transportRegData && transportRegData[0]?.handover_to_accounts?.[timePeriod]} index={3}/>
-            <Card title="Voucher Created" value={transportRegData && transportRegData[0]?.voucher_created?.[timePeriod]} index={4}/>
+            <Card title="PO created" value={transportRegData && transportRegData[0]?.po_created?.[timePeriod]} index={3}/>
+            <Card title="Handover to Accounts" value={transportRegData && transportRegData[0]?.handover_to_accounts?.[timePeriod]} index={4}/>
+            <Card title="Voucher Created" value={transportRegData && transportRegData[0]?.voucher_created?.[timePeriod]} index={5}/>
           </div>
         )}
       <div className="charts grid grid-cols-1 gap-4 xl:grid-cols-3">
