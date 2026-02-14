@@ -4,6 +4,7 @@ import AppLayout from './Pages/AppLayout'
 import CustomerExitReason from './Pages/CustomerExitReason'
 import TransportRegister from './Pages/TransportRegister'
 import GofrugalReport from './Pages/GofrugalReport'
+import Servicing from './Pages/Servicing'
 
 const App = () => {
 
@@ -23,6 +24,10 @@ const App = () => {
         {
           path: "/gofrugalreports",
           element: <GofrugalReport />
+        },
+        {
+          path: "/servicing",
+          element: <Servicing />
         }
       ]
     }
