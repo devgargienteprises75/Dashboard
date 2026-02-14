@@ -2,8 +2,8 @@ import React from 'react'
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts'
 
 const COLORS = {
-  'PENDING': '#F59E0B',
-  'RESOLVED': '#10B981',
+  'PENDING': '#3271e6',
+  'RESOLVED': '#e68032',
   'IN PROGRESS': '#3B82F6',
   'CANCELLED': '#EF4444',
   'ON HOLD': '#6366F1'
