@@ -19,8 +19,7 @@ const WarrantyChart = ({ warranty }) => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis 
                 dataKey="name" 
-                tick={{ fill: '#374151', fontSize: 12 }}
-                angle={-15}
+                tick={{ fill: '#374151', fontSize: 14, fontWeight: 500 }}
                 textAnchor="end"
                 height={80}
               />

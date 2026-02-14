@@ -8,7 +8,7 @@ const findCandidateKey = (obj, keywords=[]) => {
   return keys.find(k => keywords.some(kw => k.toLowerCase().includes(kw)))
 }
 
-const SalesmanChart = ({ cerData = [] }) => {
+const SalesmanChart = ({ cerData = [], className = '' }) => {
   const { timePeriod } = useContext(TransportRegData)
   const getFirstData = (arr) => { if (!arr) return null; if (!Array.isArray(arr)) return arr; for (const item of arr) if (item && typeof item === 'object' && Object.keys(item).length > 0) return item; return null }
   const dataObj = getFirstData(cerData)
@@ -35,7 +35,7 @@ const SalesmanChart = ({ cerData = [] }) => {
   const periodLabel = timePeriod ? timePeriod.replace(/_/g, ' ') : 'selected period'
 
   if (!sorted.length) return (
-    <div className='bg-gradient-to-br from-white to-blue-50 rounded-xl p-4 sm:p-6 lg:p-8 shadow-lg border border-blue-100'>
+    <div className={`bg-gradient-to-br from-white to-blue-50 rounded-xl p-4 sm:p-6 lg:p-8 shadow-lg border border-blue-100 ${className}`}>
       <div className='flex items-center justify-between mb-6'>
         <h2 className='text-2xl font-extrabold text-gray-900 tracking-tight'>Exits by Salesman</h2>
         <span className='px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full'>{periodLabel}</span>
@@ -52,13 +52,18 @@ const SalesmanChart = ({ cerData = [] }) => {
   )
 
   return (
-    <div className='bg-gradient-to-br from-white to-blue-50 rounded-xl p-4 sm:p-6 lg:p-8 shadow-lg border border-blue-100 hover:shadow-xl transition-shadow duration-300'>
+    <div className={`bg-gradient-to-br from-white to-blue-50 rounded-xl p-4 sm:p-6 lg:p-8 shadow-lg border border-blue-100 hover:shadow-xl transition-shadow duration-300 ${className}`}>
       <div className='flex items-center justify-between mb-6'>
         <h2 className='text-2xl font-extrabold text-gray-900 tracking-tight'>Exits by Salesman</h2>
         <span className='px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full uppercase tracking-wide'>{periodLabel}</span>
       </div>
       <ResponsiveContainer width="100%" height={600}>
-        <BarChart data={sorted} layout="vertical" margin={{ left: 20, right: 30, top: 10, bottom: 10 }}>
+        <BarChart
+          data={sorted}
+          layout="vertical"
+          margin={{ left: 20, right: 30, top: 10, bottom: 10 }}
+          barCategoryGap="28%"
+        >
           <defs>
             <linearGradient id="colorBar" x1="0" y1="0" x2="1" y2="0">
               <stop offset="5%" stopColor="#4366FF" stopOpacity={0.9}/>

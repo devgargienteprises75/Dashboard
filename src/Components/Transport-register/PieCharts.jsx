@@ -45,15 +45,16 @@ const ProductSalesChart = ({ transportRegData }) => {
             </Pie>
             <Tooltip
               contentStyle={{
-                backgroundColor: '#1F2937',
+                backgroundColor: '#ffffff',
                 border: 'none',
                 borderRadius: '8px',
                 boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                color: '#fff',
+                color: 'white',
                 fontSize: '14px',
                 fontWeight: 600,
                 padding: '12px'
               }}
+              
             />
             <Legend
               align="center"
@@ -113,7 +114,7 @@ const TrafficChart = ({ title = "Pending Tasks", transportRegData }) => {
             </Pie>
             <Tooltip
               contentStyle={{
-                backgroundColor: '#1F2937',
+                backgroundColor: '#ffffff',
                 border: 'none',
                 borderRadius: '8px',
                 boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',

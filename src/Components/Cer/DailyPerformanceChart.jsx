@@ -38,7 +38,7 @@ const DailyPerformanceChart = ({ cerData = [], className = '' }) => {
   const periodLabel = timePeriod ? timePeriod.replace(/_/g, ' ') : 'selected period'
 
   if (!chartData.length) return (
-    <div className={`bg-gradient-to-br from-white to-orange-50 rounded-xl p-4 sm:p-6 lg:p-8 ${className} shadow-lg border border-orange-100`}>
+    <div className={`max-h-96 bg-gradient-to-br from-white to-orange-50 rounded-xl p-4 sm:p-6 lg:p-8 ${className} shadow-lg border border-orange-100`}>
       <div className='flex items-start sm:items-center justify-between gap-3 mb-6'>
         <h2 className='text-xl sm:text-2xl font-extrabold text-gray-900 tracking-tight'>Daily Performance</h2>
         <span className='px-3 py-1 bg-orange-100 text-orange-700 text-xs font-semibold rounded-full uppercase tracking-wide'>{periodLabel}</span>
@@ -55,7 +55,7 @@ const DailyPerformanceChart = ({ cerData = [], className = '' }) => {
   )
 
   return (
-    <div className={`bg-gradient-to-br from-white to-orange-50 rounded-xl p-4 sm:p-6 lg:p-8 ${className} shadow-lg border border-orange-100 hover:shadow-xl transition-shadow duration-300`}>
+    <div className={`max-h-96 bg-gradient-to-br from-white to-orange-50 rounded-xl p-4 sm:p-6 lg:p-8 ${className} shadow-lg border border-orange-100 hover:shadow-xl transition-shadow duration-300`}>
       <div className='flex items-start sm:items-center justify-between gap-3 mb-6'>
         <h2 className='text-xl sm:text-2xl font-extrabold text-gray-900 tracking-tight'>Daily Performance</h2>
         <span className='px-3 py-1 bg-orange-100 text-orange-700 text-xs font-semibold rounded-full uppercase tracking-wide'>{periodLabel}</span>
