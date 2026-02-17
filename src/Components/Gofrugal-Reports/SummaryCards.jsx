@@ -13,10 +13,9 @@ const SummaryCards = ({
   counterSaleAmount,
   discountedBillsCount,
   totalDiscount,
-  blankBillNoCount
 }) => {
   return (
-    <div className='crds mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4'>
+    <div className='crds mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3'>
       <div className={cardClass}>
         <div className='mb-3 flex items-center justify-between'>
           <span className={titleClass}>Total Bills</span>
@@ -53,19 +52,6 @@ const SummaryCards = ({
         <div className='flex h-full flex-col gap-2'>
           <span className={valueClass}>{discountedBillsCount}</span>
           <span className={subClass}>Total Discount: Rs. {totalDiscount.toLocaleString()}</span>
-        </div>
-      </div>
-
-      <div className={cardClass}>
-        <div className='mb-3 flex items-center justify-between'>
-          <span className={titleClass}>Bills without Bill No.</span>
-          <div className='rounded-xl bg-orange-100 p-2.5'>
-            <FileQuestion className='h-5 w-5 text-orange-600' />
-          </div>
-        </div>
-        <div className='flex h-full flex-col gap-2'>
-          <span className={valueClass}>{blankBillNoCount}</span>
-          <span className={subClass}>Missing source bill reference</span>
         </div>
       </div>
     </div>
