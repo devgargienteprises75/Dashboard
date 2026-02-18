@@ -42,7 +42,7 @@ const SalesOverviewChart = ({ chartData, periodLabel }) => {
               cursor={{ fill: 'rgba(255, 107, 53, 0.08)' }}
             />
             <Legend wrapperStyle={{ paddingTop: '10px' }} iconType="circle" />
-            <Bar dataKey="value" fill="url(#colorGfgBar)" radius={[8, 8, 0, 0]} barSize={50} />
+            <Bar dataKey="Value" fill="url(#colorGfgBar)" radius={[8, 8, 0, 0]} barSize={50} />
           </BarChart>
         </ResponsiveContainer>
       </div>
