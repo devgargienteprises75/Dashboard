@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
   const getClassName = ({ isActive }) =>
-    `${isActive ? 'text-orange-500 bg-orange-50 border-orange-300' : 'text-gray-600 hover:bg-gray-100'} border px-3 py-2 lg:px-4 lg:py-3 rounded-lg font-medium text-sm sm:text-base transition-colors`
+    `${isActive ? 'text-orange-500 bg-orange-50 border-orange-400 border-l-10' : 'text-gray-600 hover:bg-gray-100'}  border px-3 py-2 lg:px-4 lg:py-3 rounded-lg font-medium text-sm sm:text-base transition-colors`
 
   return (
     <aside className="w-full border-b border-gray-300 bg-white px-4 py-4 lg:fixed lg:left-0 lg:top-0 lg:h-screen lg:w-64 lg:border-b-0 lg:border-r lg:p-6">
