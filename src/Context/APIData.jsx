@@ -24,8 +24,6 @@ const TransportReg = ({ children }) => {
                     axios.get(import.meta.env.VITE_GFG_DATA),
                     axios.get(import.meta.env.VITE_SERVICE_DATA)
                 ])
-                console.log(response);
-                
                 setTransportRegData(response[0].data)
                 setCerData(response[1].data)
                 setGfgData(response[2].data)
