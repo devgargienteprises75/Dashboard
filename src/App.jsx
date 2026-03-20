@@ -34,12 +34,12 @@ const App = () => {
     }
   ])
 
-  const location = useLocation()
+  const location = window.location.pathname
 
   useEffect(() => {
     ReactGa.send({
       hitType: 'pageview',
-      page: location.pathname
+      page: location
     }, [location])
   })
 
